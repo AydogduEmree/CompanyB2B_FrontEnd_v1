@@ -1,0 +1,258 @@
+<home-nav></home-nav>
+<section id="pricebook">
+  <div id="wholepage"  [ngClass]="{
+                                         'blur-background': this.addPriceBookClicked===1}">
+
+    <div class="eachcolumn">
+      <p class="page-title">Price Plans</p>
+    </div>
+
+    <div class="eachcolumn">
+      <div class="general-tab">
+        <a   routerLink="/pricebook" class="nav-title"><span>PriceBook</span></a>
+        <div class="general-tab-inactive">
+          <a   routerLink="/products" class="tab-inactive-inner"><span>Products</span></a>
+          <a   routerLink="/bundles" class="tab-inactive-inner"><span>Bundles</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="eachrow">
+      <div class="operation-bar">
+        <div id="first-action" class="action" (click)="togglePopPriceBook(-2);"
+             [ngClass]="{'operation-action-disable': this.wCountChecks!=1}">
+          Edit
+        </div>
+
+        <div class="action" [ngClass]="{'operation-action-disable': this.wCountChecks!=1}">
+          Manage
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="eachrow">
+        <div class="paginationTab">
+          <div class="grid-pagination-text">{{this.getCountPlans()}} Results</div>
+          <div class="">
+            <ul class="grid-pagination-list">
+              <li class="pagination"><a></a>&lt;</li>
+
+              <li class="pagination"><a></a>1</li>
+
+              <li class="pagination"><a></a>&gt;</li>
+            </ul>
+          </div>
+          <div class="adjustToRow">
+            <div class="grid-pagination-text">Show:</div>
+            <button class="btn-pagination" (click)="showDropDown(vDropDown);">{{this.vDropDown}}<i class="fas fa-angle-down" style="margin-left:1em" ></i></button>
+
+          </div>
+          <div class="clickable-drop-down" style="background-color:white; width:100px; height: 100px;" *ngIf="bShowDropDown">
+              <div class="clickable-drop-down-item" role="button" (click)="showDropDown(10);">
+                  <div class="clickable-drop-down-text">10</div>
+              </div>
+
+            <div class="clickable-drop-down-item" role="button" (click)="showDropDown(25);">
+              <div class="clickable-drop-down-text">25</div>
+            </div>
+
+            <div class="clickable-drop-down-item" role="button" (click)="showDropDown(50);">
+              <div class="clickable-drop-down-text">50</div>
+            </div>
+
+            <div class="clickable-drop-down-item" role="button" (click)="showDropDown(100);">
+              <div class="clickable-drop-down-text">100</div>
+            </div>
+
+
+          </div>
+        </div>
+
+      <div class="crud-tab">
+          <table class="pull-right">
+            <tbody>
+              <tr>
+                <td style="padding-right: 2.1em;" class="right-crud-item" (click)="refresh();">
+                  <i class="fa-solid fa-rotate-right fa-2x" ></i>
+                </td>
+                <td style="padding-right: 0.5em;" class="right-crud-item" (click)="promptText('Table Columns Settings');">
+                  <i class="fa-solid fa-sliders fa-2x" ></i>
+                  <i class="fa-solid fa-angle-down adjustToRight"></i>
+                </td>
+                <td style="padding-right: 0.5em;" class="right-crud-item" (click)="showAddPriceBook();">
+                  <i class="fa-regular fa-square-plus fa-2x" ></i>
+                  <i class="fa-solid fa-angle-down adjustToRight"></i>
+
+                </td>
+                <td style="padding-right: 0.5em;" class="right-crud-item" (click)="promptText('Export Files');">
+                  <i class="fa-solid fa-file-export fa-2x" ></i>
+                  <i class="fa-solid fa-angle-down adjustToRight"></i>
+                </td>
+
+
+              </tr>
+            </tbody>
+
+          </table>
+        <div class="clickable-drop-down push-left" style="background-color:white; width:100px; height: 29px;" *ngIf="bAddPriceBook">
+          <div class="clickable-drop-down-item" role="button" style="width:6em">
+            <div class="clickable-drop-down-text" (click)="togglePopPriceBook(-1);">Add Price Book</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="eachrow">
+    <div class="table-responsive">
+    <table>
+      <thead>
+      <tr>
+        <th style="width:1%;"></th>
+        <th style="width:1%;"><input class="grid-checkbox ng-untouched"  type="checkbox" ng-model="selectAllCheckBox" ng-checked="isSelectedAll()" ng-click="selectAll()"></th>
+        <th style="text-align: left;width:200px;max-width:148px;">
+            <span style="padding-left:4px;">Plan Name</span>
+            <!--Filter Block-->
+            <i class="fa-solid fa-filter" style="margin-left:29em;" (click)="showFilter()" ></i>
+          <div class="clickable-drop-down" style="background-color:white; width:200px; height: 100px;" *ngIf="bShowFilter">
+              <div class="modal-filter">
+                <div class="general-radio-button-div" style="transform:translateX(-6%)">
+                  <input type="radio" id="radiobtnContain"
+                         class="general-input-radio-field" name="radiobtnContain"
+                         [(ngModel)]="wRadioOptions" [value]="'1'"
+                         [checked]="this.wRadioOptions==='1'"
+                  >
+                  <label for="radiobtnContain" class="filter-radio-label">Contains</label>
+
+                </div>
+                <div class="general-radio-button-div">
+                  <input type="radio" id="radiobtnEqual"
+                         class="general-input-radio-field" name="radiobtnEqual"
+                         [(ngModel)]="wRadioOptions" [value]="'2'"
+                         [checked]="this.wRadioOptions==='2'"
+
+                  >
+                  <label for="radiobtnEqual" class="filter-radio-label">Equals</label>
+
+                </div>
+              </div>
+            <div class="modal-filter" >
+              <input type="text"  id="planNameFilter"
+                        class="general-input-radio-field" placeholder="Plan Name" name="planNameFilter"
+                        style="height:18px" [(ngModel)]='wFilterTempAck'>
+            </div>
+            <div class="filter-footer">
+
+              <button   (click)="clearFilter()" class="general-button-disable"
+                        style="margin-right:0.6em;">
+                Cancel
+              </button>
+              <button  id="searchFilter" (click)="doSearchFilter()" class="general-button-blue" style="margin-right:0.6em;">
+                Filter
+              </button>
+            </div>
+          </div>
+          <!--Filter Block-->
+        </th>
+        <th style="text-align: left;width:200px;max-width:148px;"><span style="padding-left:4px;">Description</span></th>
+        <th style="text-align: left;width:200px;max-width:148px;"><div style="padding-left:4px;">Currency</div></th>
+      </tr>
+      </thead>
+      <tr *ngFor="let plan of plans | priceBookFilter:wFilterAck:wRadioOptions; let index = index" [ngClass]="{'oddRowColor': 1 === index % 2}">
+        <th style="width:1%;"></th>
+        <th style="width:1%;"><input class="grid-checkbox" id='{{plan.price_plan_id}}'  type="checkbox"  (click)="enableCBEdit($event)"  ></th>
+        <td><span style="padding-left:4px;">{{plan.planName}}</span></td>
+        <td><span style="padding-left:4px;">{{plan.description}}</span></td>
+        <td ngSwitch="{{plan.currency_code}}">
+          <div *ngSwitchCase="1"><span style="padding-left:4px;">EUR</span></div>
+          <div *ngSwitchCase="2"><span style="padding-left:4px;">USD</span></div>
+          <div *ngSwitchCase="3"><span style="padding-left:4px;">TL</span></div>
+        </td>
+
+      </tr>
+    </table>
+    </div>
+
+  </div>
+
+
+  </div>
+
+
+
+  <!--Modal Dialog PopUp Screen-->
+  <div class="modal-dialog" [ngClass]="{
+                                         'modal-dialog-disabled': this.addPriceBookClicked===0,
+                                            'adjustToColumn' : this.addPriceBookClicked===1}">
+    <div class="model-content">
+        <div class="general-modal">
+            <div class="modal-header ">
+              <div class="modal-title" ><p style="width: 120px;height:30px;">Add Price Book</p></div>
+                <button (click)="togglePopPriceBook(-1)"><i class="fas fa-times fa-2x"></i></button>
+            </div>
+
+           <!-- <div class="modal-sub-content"></div>-->
+              <form [formGroup]="priceBookForm" (ngSubmit)="onSubmit($event)">
+                <div class="modal-columns">
+                  <div class="adjustToColumn general-margin-bottom" style="width: 33.3%">
+                    <label for="planName" class="label"
+                           [ngClass]="{'general-input-disabled': this.wUIOperation==='UPDATE'}"
+                    >Name<p class="genera-required-star">*</p></label>
+                    <input type="text" [formControlName]="'planName'" id="planName"
+                           class="general-input-field" placeholder="Name" name="planName" required autofocus
+                           [ngClass]="{'general-input-disabled': this.wUIOperation==='UPDATE'}"
+                    >
+                    <p *ngIf="!priceBookForm.get('planName')?.valid && priceBookForm.get('planName')?.touched"
+                       class=" alert-invalid-message">
+                      Please provide a valid Name
+                    </p>
+                  </div>
+                  <div class="adjustToColumn general-margin-bottom" style="width: 33.3%">
+                      <label for="currency_code" class="label">Currency<p class="genera-required-star">*</p></label>
+                    <button type="button" id = "currency_code" class="btn-pagination" (click)="showCurrencyList();">{{this.vCurrencyAck}}<i class="fas fa-angle-down" style="margin-left:1em" ></i></button>
+                    <!---->
+                    <div class="clickable-drop-down" style="background-color:white; width:100px; height: 100px;" *ngIf="bShowCurrencyList">
+                      <div class="clickable-drop-down-item" role="button"
+                           *ngFor="let currency of currencies"     >
+                        <div class="clickable-drop-down-text"
+                              id='{{currency.kod}}' (click)="showCurrencyId($event)">{{currency.ack_language_1}}</div>
+                      </div>
+                    </div>
+                    <!---->
+                  </div>
+
+                  <div class="adjustToColumn general-margin-bottom">
+                    <label for="description" class="label">Description<p class="genera-required-star">*</p></label>
+                    <textarea type="text" [formControlName]="'description'" id="description"
+                              class="general-text-area" placeholder="Description" name="description" required autofocus
+                    style="height:72px">
+
+                    </textarea>
+                    <p *ngIf="!priceBookForm.get('description')?.valid && priceBookForm.get('description')?.touched"
+                       class=" alert-invalid-message">
+                      Please provide a valid Description
+                    </p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button   (click)="togglePopPriceBook(-1)" class="general-button-disable"
+                      style="margin-right:0.6em;">
+                    Cancel
+                  </button>
+                    <button  id="submitButon" type="submit" class="general-button-blue" style="margin-right:0.6em;">
+                        Save
+                      </button>
+                </div>
+              </form>
+
+            </div>
+
+
+
+    </div>
+  </div>
+
+
+
+</section>
+<router-outlet></router-outlet>

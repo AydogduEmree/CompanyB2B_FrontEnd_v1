@@ -1,0 +1,42 @@
+<section id="sign-up">
+  <div class="card">
+    <div class="card-top">
+      <h4>Register</h4>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
+      <div class="card-body">
+        <div class="margin-downing">
+          <label for="user_name" class="label">Username</label>
+          <input type="text" [formControlName]="'username'" id="user_name"
+                 class="form-control input"  required autofocus>
+          <span *ngIf="!loginForm.get('username')?.valid && loginForm.get('username')?.touched"
+                class="alert alert-danger">
+                                    Please provide a valid username
+                                </span>
+
+        </div>
+        <div class="margin-downing">
+          <label for="password" class="label">Password</label>
+          <input type="password" [formControlName]="'password'" id="password"
+                 class="form-control input"  required autofocus>
+          <span *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched"
+                class="alert alert-danger">
+                                    Please provide a valid password
+                                </span>
+
+        </div>
+      </div>
+
+
+      <div class="card-body margin-ending">
+        <button   type="submit" class="btn">
+          Login
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</section>

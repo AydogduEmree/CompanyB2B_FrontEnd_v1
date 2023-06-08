@@ -1,0 +1,192 @@
+<home-nav></home-nav>
+<section id="product">
+  <div id="wholepage">
+    <!-- Informative Title-->
+    <div class="eachcolumn">
+      <div class="eachrow">
+        <p class="main-url-text">Products</p>
+        <p class="page-title"> / {{this.wPageTitle}}</p>
+      </div>
+    </div>
+
+    <!--Form Fields-->
+    <div class="eachColumn">
+      <div class="model-form">
+        <div class="model-tabs eachrow">
+          <div class="model-tab" [ngClass]="{'tab-selected': bTab1===true}" (click)="toggleTab1();"><span [ngClass]="{'tab-selected-span': bTab1===true}" class="tab-text">Product Information</span></div>
+          <div class="model-tab" [ngClass]="{'tab-selected': bTab2===true}" (click)="toggleTab2();"><span [ngClass]="{'tab-selected-span': bTab2===true}"class="tab-text">Price Book</span></div>
+          <div class="model-tab" [ngClass]="{'tab-selected': bTab3===true}" (click)="toggleTab3();"><span [ngClass]="{'tab-selected-span': bTab3===true}"class="tab-text">Additional Information</span></div>
+        </div>
+        <div class="model-content">
+          <div *ngIf="bTab1">
+            <div><span class="tab-text">Basic Info</span></div>
+            <div class="adjustToRow">
+              <div class="adjustToColumn general-margin-bottom" style="width: 33.3%;height:36px;">
+                <label for="productName" class="label">Name<p class="genera-required-star">*</p></label>
+                <input type="text" id="productName" class="general-input-field"
+                       [(ngModel)]="wProduct.productName" placeholder="Product Name" name="productName" required autofocus>
+              </div>
+
+              <div class="adjustToColumn general-margin-bottom" style="width: 62%; height: 42px; margin-left: 20px;">
+                <label for="description" class="label">Description<p class="genera-required-star">*</p></label>
+                <textarea type="text"  id="description" class="general-text-area"
+                          [(ngModel)]="wProduct.description" placeholder="Description" name="description" required autofocus
+                          style="height:25px">
+              </textarea>
+              </div>
+            </div>
+            <div><span class="tab-text">Billing Info</span></div>
+            <div class="adjustToRow">
+              <div class="adjustToColumn general-margin-bottom" style="width: 33.3%;height:36px;">
+                <label for="productCost" class="label">Cost<p class="genera-required-star">*</p></label>
+                <input type="text" id="productCost" class="general-input-field"
+                       [(ngModel)]="wProduct.productCost" placeholder="Product Cost" name="productCost" required autofocus>
+              </div>
+
+              <div class="adjustToColumn general-margin-bottom" style="width: 33.3%;height: 42px; margin-left: 20px;">
+                <label for="category_code" class="label">Currency<p class="genera-required-star">*</p></label>
+                <button type="button" id = "category_code" class="btn-pagination" style="height:38px;width:120px" (click)="showCategoryList();">{{this.vProdCategoryAck}}<i class="fas fa-angle-down" style="margin-left:1em" ></i></button>
+                <!---->
+                <div class="clickable-drop-down" style="background-color:white; width:110px; height: 100px;transform:translate(8px,20px);" *ngIf="bShowProdCategories">
+                  <div class="clickable-drop-down-item" role="button"
+                       *ngFor="let prodCategory of prodCategories"     >
+                    <div class="clickable-drop-down-text"
+                         id='{{prodCategory.kod}}' (click)="showCategoryId($event)">{{prodCategory.ack_language_1}}</div>
+                  </div>
+                </div>
+                <!---->
+              </div>
+
+              <!-- Bill Freq-->
+              <div class="adjustToColumn general-margin-bottom" style="width: 33.3%;height: 42px;margin-left: -100px; ">
+                <label for="bill_freq" class="label">Recurring Frequency<p class="genera-required-star">*</p></label>
+                <button type="button" id = "bill_freq" class="btn-pagination" style="height:38px;width:120px" (click)="showBillFreqs();">{{this.vBillFreqAck}}<i class="fas fa-angle-down" style="margin-left:1em" ></i></button>
+                <!---->
+                <div class="clickable-drop-down" style="background-color:white; width:110px; height: 100px;transform:translate(8px,20px);" *ngIf="bShowBillFreqs">
+                  <div class="clickable-drop-down-item" role="button"
+                       *ngFor="let billFreq of billFreqs"     >
+                    <div class="clickable-drop-down-text"
+                         id='{{billFreq.kod}}' (click)="showBillFreqId($event)">{{billFreq.ack_language_1}}</div>
+                  </div>
+                </div>
+                <!---->
+              </div>
+              <!---->
+            </div>
+            <div class="adjustToRow">
+              <div class="adjustToColumn general-margin-bottom" style="width: 33.3%;height: 42px; ">
+                <label class="label">Product Hierarchy Type<p class="genera-required-star">*</p></label>
+                <div class="adjustToRow">
+                  <div class="general-radio-button-div" style="transform:translateX(-6%)">
+                    <input type="radio" id="radioBtnNone"
+                           class="general-input-radio-field" name="radioBtnNone"
+                           [(ngModel)]="vRadioHiearchy" [value]="'1'"
+                           [checked]="this.vRadioHiearchy==='1'"
+                    >
+                    <label for="radioBtnNone" class="filter-radio-label">None</label>
+
+                  </div>
+                  <div class="general-radio-button-div" style="transform:translateX(-6%)">
+                    <input type="radio" id="radioBtnParent"
+                           class="general-input-radio-field" name="radioBtnParent"
+                           [(ngModel)]="vRadioHiearchy" [value]="'2'"
+                           [checked]="this.vRadioHiearchy==='2'"
+                    >
+                    <label for="radioBtnNone" class="filter-radio-label">Parent</label>
+
+                  </div>
+                  <div class="general-radio-button-div" style="transform:translateX(-6%)">
+                    <input type="radio" id="radioBtnChild"
+                           class="general-input-radio-field" name="radioBtnChild"
+                           [(ngModel)]="vRadioHiearchy" [value]="'3'"
+                           [checked]="this.vRadioHiearchy==='3'"
+                    >
+                    <label for="radioBtnNone" class="filter-radio-label">Child</label>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="general-radio-button-div" style="width: 33.3%;height: 42px;margin-left:20px;margin-top:9px;">
+                <input type="checkbox" id="cbProductActive"
+                       name="cbProductActive"
+                       [(ngModel)]="cbProdActive"
+                       [checked]="this.cbProdActive==='Y'"
+                >
+                <label for="cbProductActive" class="filter-radio-label" style="display: block; transform: translate(23px, -15px);">Active Flag</label>
+
+              </div>
+            </div>
+
+            <div><span class="tab-text"></span></div>
+
+          </div>
+
+
+          <div *ngIf="bTab2">
+            <div class="main-price-container adjustToRow">
+              <div class="left-availables adjustToColumn">
+                <div class="main-head"><span class="tab-text">Available Plans</span></div>
+                <div class="main-content">
+                    <div class="main-subcontent"  *ngFor="let availablePlan of wAvailablePlans; let index = index" [ngClass]="{'oddRowColor': 1 === index % 2}">
+                      <div class="adjustToColumn">
+                           <span class="subcontent-name" style="padding-left:4px;">{{availablePlan.planName}}-
+                              <span ngSwitch="{{availablePlan.currency_code}}" >
+                                 <span *ngSwitchCase="1" >EUR</span>
+                                <span *ngSwitchCase="2" >USD</span>
+                                <span *ngSwitchCase="3" >TL</span>
+                              </span>
+                           </span>
+                        <span class="subcontent-description" style="padding-left:4px;">{{availablePlan.description}}</span>
+
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+              <div class="center-operations"></div>
+              <div class="right-selected">
+                <div><span class="tab-text">Selected Plans</span></div>
+
+              </div>
+            </div>
+
+
+          </div>
+          <div class="model-tabs-footer">
+            <div class="adjustToRow">
+              <div style="display:flex;flex-direction: row;justify-content: space-between;width:32.5em;">
+                <button   (click)="btnPrevious();" class="general-button-disable"
+                          style="margin-right:0.6em;">
+                  Previous
+                </button>
+                <button   (click)="btnCancel();" class="general-button-disable"
+                          style="margin-right:0.6em;">
+                  Cancel
+                </button>
+              </div>
+              <div style="display:flex;flex-direction: row;justify-content: space-between;width:32.5em;">
+                <button  id="submitButon" (click)="btnSubmit();" class="general-button-blue" style="margin-right:0.6em;">
+                  Save
+                </button>
+                <button   (click)="btnNext();" class="general-button-disable"
+                          style="margin-right:0.6em;">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div *ngIf="bTab3"></div>
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+

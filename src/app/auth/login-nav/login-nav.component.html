@@ -1,0 +1,12 @@
+<section id = "header">
+  <a href="#"><img width="180" alt="CompanyLogo" src="https://www.telekom.de/resources/images/620126/tlogo.svg"></a>
+
+  <div class="right-corner">
+    <a   routerLink="signUp" (click)="showMe();"><button class="btn margin-right"
+                      [routerLinkActive]="['btnActive']" [routerLinkActiveOptions]="{exact : true}">Sign Up</button></a>
+    <a routerLink="logIn" (click)="showMe();"  ><button class="btn margin-right"
+                      [routerLinkActive]="['btnActive']" [routerLinkActiveOptions]="{exact : true}">Log In</button></a>
+
+  </div>
+
+</section>

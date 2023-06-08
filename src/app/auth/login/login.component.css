@@ -1,0 +1,136 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin:0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+a,
+a:visited,
+a:hover {
+  color: #1976d2;
+  text-decoration: none;
+}
+#sign-up{
+  all: unset;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  width:500px;
+  height:440px;
+
+
+}
+.card{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+.card-top{
+  width:300px;
+  height: 35px;
+  color: #24292e;
+  background-color: #fafafa;
+  text-align:center;
+  padding: 30px 100px;
+}
+.card-body{
+  margin: 20px 30px;
+
+}
+.margin-topping {
+  margin-top: 15px;
+}
+.margin-downing{
+  margin-bottom: 20px;
+}
+.margin-ending{
+  text-align: end;
+}
+
+.btn{
+  background: #33a8ff ;
+  color: #fafafa;
+  border:none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  margin:10px 0;
+  font-size: 15px;
+  cursor:pointer;
+}
+
+.btn:hover{
+  color: #33a8ff;
+  background: #fafafa;
+}
+.btn:active{
+  transform:scale(0.95);
+}
+.label{
+  margin:0 0 3px 5px;
+  font-size:20px;
+}
+.input{
+  width: 100%;
+  box-sizing: border-box;
+  padding:10px;
+  border-radius: 1px 1px 1px 1px;
+  border: 1px solid #888888;
+  font-size: 15px;
+}
+
+.input::placeholder{
+  color:#ccc;
+
+}
+
+
+.alert {
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+

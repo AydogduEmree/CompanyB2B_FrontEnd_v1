@@ -1,0 +1,196 @@
+<home-nav></home-nav>
+<section id="product">
+  <div id="wholepage">
+    <div class="eachcolumn">
+      <p class="page-title">Products</p>
+    </div>
+
+    <div class="eachcolumn">
+      <div class="general-tab">
+        <div class="general-tab-inactive">
+          <a   routerLink="/pricebook" class="tab-inactive-inner"><span>PriceBook</span></a>
+        </div>
+        <a   routerLink="/products" class="nav-title"><span>Products</span></a>
+        <div class="general-tab-inactive">
+          <a   routerLink="/bundles" class="tab-inactive-inner"><span>Bundles</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="eachrow">
+      <div class="operation-bar">
+      </div>
+    </div>
+
+    <!--Pagination-->
+    <div class="eachrow">
+      <div class="paginationTab">
+        <div class="grid-pagination-text">{{this.getCountProducts()}} Results</div>
+        <div class="">
+          <ul class="grid-pagination-list">
+            <li class="pagination" (click)="pagePrevious();"><a></a>&lt;</li>
+
+            <li class="pagination" (click)="selectPagination(1,vSlot1);" [ngClass]="{'active': this.vSlot1===this.vSelectedPage}"><a><span>{{this.vSlot1}}</span></a></li>
+            <li class="pagination" (click)="selectPagination(2,vSlot2);" [ngClass]="{'active': this.vSlot2===this.vSelectedPage}" *ngIf="bRemoveSlot2"><a><span>{{this.vSlot2}}</span></a></li>
+            <li class="pagination" (click)="selectPagination(3,vSlot3);" [ngClass]="{'active': this.vSlot3===this.vSelectedPage}" *ngIf="bRemoveSlot3"><a><span>{{this.vSlot3}}</span></a></li>
+            <li class="pagination" (click)="showPageList();" [ngClass]="{'active': this.vSlot4===this.vSelectedPage}"  *ngIf="bRemoveSlot4"><a><span>{{this.vSlot4}}</span></a></li>
+
+            <li class="pagination" (click)="pageNext();"><a></a>&gt;</li>
+          </ul>
+        </div>
+        <!--PAgination Page No-->
+        <div class="clickable-drop-down scroll-add" style="background-color:white; width:50px; height: 100px;transform:translateX(150px)" *ngIf="bShowPageList">
+          <div class="clickable-drop-down-item bottom-line" role="button"  (click)="selectPaginationInList(arrVal);"*ngFor="let arrVal of vPageOptionsArr ;">
+            <div class="clickable-drop-down-text" style="font-size:0.875em;">{{arrVal}}</div>
+          </div>
+
+
+
+        </div>
+
+        <div class="adjustToRow">
+          <div class="grid-pagination-text">Show:</div>
+          <button class="btn-pagination" (click)="this.showDropDown(this.vDropDown);">{{this.vDropDown}}<i class="fas fa-angle-down" style="margin-left:1em" ></i></button>
+
+        </div>
+        <!--PAgination list Count-->
+        <div class="clickable-drop-down" style="background-color:white; width:50px; height: 100px;transform:translateX(295px)" *ngIf="bShowDropDown">
+          <div class="clickable-drop-down-item" role="button" (click)="setPageRows(10);">
+            <div class="clickable-drop-down-text">10</div>
+          </div>
+
+          <div class="clickable-drop-down-item" role="button" (click)="setPageRows(25);">
+            <div class="clickable-drop-down-text">25</div>
+          </div>
+
+          <div class="clickable-drop-down-item" role="button" (click)="setPageRows(50);">
+            <div class="clickable-drop-down-text">50</div>
+          </div>
+
+          <div class="clickable-drop-down-item" role="button" (click)="setPageRows(100);">
+            <div class="clickable-drop-down-text">100</div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="crud-tab">
+        <table class="pull-right">
+          <tbody>
+          <tr>
+            <td style="padding-right: 2.1em;" class="right-crud-item" (click)="refresh();">
+              <i class="fa-solid fa-rotate-right fa-2x" ></i>
+            </td>
+            <td style="padding-right: 0.5em;" class="right-crud-item" (click)="promptText('Table Columns Settings');">
+              <i class="fa-solid fa-sliders fa-2x" ></i>
+              <i class="fa-solid fa-angle-down adjustToRight"></i>
+            </td>
+            <td style="padding-right: 0.5em;" class="right-crud-item" (click)="showAddProduct();">
+              <i class="fa-regular fa-square-plus fa-2x" ></i>
+              <i class="fa-solid fa-angle-down adjustToRight"></i>
+
+            </td>
+            <td style="padding-right: 0.5em;" class="right-crud-item" (click)="promptText('Export Files');">
+              <i class="fa-solid fa-file-export fa-2x" ></i>
+              <i class="fa-solid fa-angle-down adjustToRight"></i>
+            </td>
+
+
+          </tr>
+          </tbody>
+
+        </table>
+        <div class="clickable-drop-down push-left" style="background-color:white; width:100px; height: 29px;" *ngIf="bAddProduct">
+          <div class="clickable-drop-down-item" role="button">
+            <div class="clickable-drop-down-text"  style="width:6em" (click)="openProductDetails('','I');">Add Product</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  Product Details -->
+    <div class="eachrow">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:1%;"></th>
+              <th style="width:1%;"></th>
+              <th style="text-align: left;width:200px;max-width:148px;">
+                <span >Product Name</span>
+                <!--Filter Block-->
+                <i class="fa-solid fa-filter" style="margin-left:13.6em;" (click)="showFilter()" ></i>
+                <div class="clickable-drop-down" style="background-color:white; width:200px; height: 100px;transform: translateX(120%);" *ngIf="bShowFilter">
+                  <div class="modal-filter">
+                    <div class="general-radio-button-div" style="transform:translateX(-6%)">
+                      <input type="radio" id="radiobtnContain"
+                             class="general-input-radio-field" name="radiobtnContain"
+                             [(ngModel)]="wRadioOptions" [value]="'1'"
+                             [checked]="this.wRadioOptions==='1'"
+                             (change)="this.bPressedSearch=false"
+                      >
+                      <label for="radiobtnContain" class="filter-radio-label">Contains</label>
+
+                    </div>
+                    <div class="general-radio-button-div">
+                      <input type="radio" id="radiobtnEqual"
+                             class="general-input-radio-field" name="radiobtnEqual"
+                             [(ngModel)]="wRadioOptions" [value]="'2'"
+                             [checked]="this.wRadioOptions==='2'"
+                             (change)="this.bPressedSearch=false"
+                      >
+                      <label for="radiobtnEqual" class="filter-radio-label">Equals</label>
+
+                    </div>
+                  </div>
+                  <div class="modal-filter" >
+                    <input type="text"  id="productNameFilter"
+                           class="general-input-radio-field" placeholder="Product Name" name="productNameFilter"
+                           style="height:18px" [(ngModel)]='wFilterTempAck'>
+                  </div>
+                  <div class="filter-footer">
+
+                    <button   (click)="clearFilter()" class="general-button-disable"
+                              style="margin-right:0.6em;">
+                      Cancel
+                    </button>
+                    <button  id="searchFilter" (click)="doSearchFilter()" class="general-button-blue" style="margin-right:0.6em;">
+                      Filter
+                    </button>
+                  </div>
+                </div>
+                <!--Filter Block-->
+              </th>
+              <th style="text-align: left;width:200px;max-width:148px;"><div style="padding-left:4px;">Category</div></th>
+              <th style="text-align: left;width:200px;max-width:148px;"><div style="padding-left:4px;">Frequency</div></th>
+              <th style="text-align: left;width:200px;max-width:148px;"><div style="padding-left:4px;">Product Cost</div></th>
+              <th style="text-align: left;width:200px;max-width:148px;"><span style="padding-left:4px;">Description</span></th>
+            </tr>
+
+
+          </thead>
+          <tr *ngFor="let product of products | productPagination:vSelectedPage:V_PAGINATION:wFilterAck:wRadioOptions:bPressedSearch ; let index = index" [ngClass]="{'oddRowColor': 1 === index % 2}">
+            <th style="width:1%;"></th>
+            <th style="width:1%;"></th>
+            <td><a   routerLink="/products/edit/{{product.productId}}" class="nav-title" style="font-size: 1em;    padding: 0.25em;"><span>{{product.productName}}</span></a></td>
+            <td><span style="padding-left:4px;">{{product.productCategoryCode}}</span></td>
+            <td ngSwitch="{{product.defaultBillFreq}}">
+              <div *ngSwitchCase="0"><span style="padding-left:4px;">One Time</span></div>
+              <div *ngSwitchCase="1"><span style="padding-left:4px;">Monthly</span></div>
+              <div *ngSwitchCase="3"><span style="padding-left:4px;">Quarterly</span></div>
+              <div *ngSwitchCase="6"><span style="padding-left:4px;">Semi Annually</span></div>
+              <div *ngSwitchCase="12"><span style="padding-left:4px;">Annualy</span></div>
+            </td>
+            <td><span style="padding-left:4px;">{{product.productCost}}</span></td>
+            <td><span style="padding-left:4px;">{{product.description}}</span></td>
+
+          </tr>
+
+
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</section>

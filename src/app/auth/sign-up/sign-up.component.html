@@ -1,0 +1,58 @@
+<section id="sign-up">
+  <div class="card">
+    <div class="card-top">
+      <h4>Register</h4>
+    </div>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <div class="card-body">
+        <div class="margin-topping margin-downing ">
+          <label for="email_address" class="label">E-Mail Address</label>
+          <input type="text" [formControlName]="'email'" id="email_address"
+                 class="form-control input" name="email-address" required autofocus>
+          <p *ngIf="!signUpForm.get('email')?.valid && signUpForm.get('email')?.touched"
+                class="alert alert-danger">
+                                    Please provide a valid email
+                                </p>
+        </div>
+        <div class="margin-downing">
+          <label for="user_name" class="label">Username</label>
+          <input type="text" [formControlName]="'username'" id="user_name"
+                 class="form-control input"  required autofocus>
+          <p *ngIf="!signUpForm.get('username')?.valid && signUpForm.get('username')?.touched"
+               class="alert alert-danger">
+                                    Please provide a valid username
+                                </p>
+
+        </div>
+        <div class="margin-downing">
+        <label for="password" class="label">Password</label>
+        <input type="password" [formControlName]="'password'" id="password"
+               class="form-control input"  required autofocus>
+          <p *ngIf="!signUpForm.get('password')?.valid && signUpForm.get('password')?.touched"
+                class="alert alert-danger">
+                                    Please provide a valid password
+                                </p>
+
+        </div>
+      </div>
+
+
+      <div class="card-body margin-ending">
+        <button   type="submit" class="btn" >
+          Sign Up
+        </button>
+      </div>
+
+    </form>
+
+  </div  >
+
+  <p  class="alert"
+      [ngClass]="getMessageClass()"
+      [ngClass]="getTransitionClass()"
+> <img [ngClass]="getIconClass()"
+       [ngClass]="getTransitionClass()"
+       src={{this.getIcon()}}>
+    {{this.getMessageAck()}}</p>
+</section>

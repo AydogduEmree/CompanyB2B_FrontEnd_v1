@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-commerce platform</title>
+  <link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+
+<section id="header">
+  <div class="center">
+    <button id="menuButton" (click)="changeNavDrm();"><i class="fas fa-bars"></i></button>
+    <button class="right-btn"><a href="#" ><img class="logo" alt="CompanyLogo" src="https://www.telekom.de/resources/images/620126/tlogo.svg"></a></button>
+  </div>
+
+  <div class="navbar" [ngClass]="{'navbarResponsive' : this.navClicked===1}">
+
+    <div class="dropdown">
+      <span class="dropbtn nav-title">Catalog <i class="fas fa-angle-down mRotate" ></i></span>
+
+      <div class="dropdown-content">
+        <a   routerLink="/pricebook" class="nav-title"><span>PriceBook</span></a>
+        <a   routerLink="/products" class="nav-title"><span>Products</span></a>
+        <a   routerLink="/bundles" class="nav-title"><span>Bundles</span></a>
+      </div>
+    </div>
+    <a   routerLink="/home" class="nav-title"><span>Categories</span></a>
+    <a   routerLink="/products" class="nav-title"><span>Products</span></a>
+    <a   routerLink="/logIn" class="nav-title"><span>Reports</span></a>
+    <div class="dropdown">
+      <span class="dropbtn nav-title">Catalog <i class="fas fa-angle-down mRotate" ></i></span>
+
+      <div class="dropdown-content">
+        <a   routerLink="/pricebook" class="nav-title"><span>PriceBook</span></a>
+        <div class="dropright">
+          <a   routerLink="/products" class="nav-title"><span>Products<i class="fas fa-angle-right" ></i></span></a>
+          <div class="dropright-content">
+            <a   routerLink="/pricebook" class="nav-title"><span>PriceBook</span></a>
+            <a   routerLink="/products" class="nav-title"><span>Products</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-corner">
+   <button class="right-btn"> <a   routerLink="logIn"  (click)="logOut();" ><i class="fa-solid fa-gear fa-2x"style="color: #4c9ce6; margin-right:8px"></i></a></button>
+   <button class="right-btn"><a   routerLink="logIn"  (click)="logOut();" ><i class="fa-solid fa-arrow-right-from-bracket fa-2x" style="color: #4c9ce6;"></i></a></button>
+  </div>
+
+
+
+</section>
+
+</body>
+</html>
